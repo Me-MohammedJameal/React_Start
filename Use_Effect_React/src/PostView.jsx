@@ -20,6 +20,11 @@ const PostView = () => {
         .then((response) => {
             setPosts(response.data);
         })
+        // CLEANUP FUNCTION
+        return () => {
+            // setPost(1);
+            console.log("Cleanup Function Called");
+        }
     }, [Post]);
   return (
     <>
