@@ -1,37 +1,28 @@
-import React,{useEffect , useRef , useState} from 'react'
-import Counter from './Counter';
-import FocusInput from './FocusInput';
+import React, { useRef, useState, useEffect } from "react";
 
-const App = () => {
-  const [Input , setInput] = useState("")
-  const inputRef = useRef()
-  console.log("Getting rendered");
+const RefDisplayExample = () => {
+  const [input, setInput] = useState("");
+  const inputRef = useRef();
 
-  // useEffect(() => {
-  //   inputRef.current.focus();
-  // }, []);
-
-  const display=()=>{
-    console.log(inputRef.current);
-    inputRef.current.focus();
-  }
+  // Sync ref with input state (so ref updates too)
+  useEffect(() => {
+    inputRef.current = input;
+  }, [input]);
 
   return (
-    <div>
-      <h1>Input</h1>
-      <input type="text"
-      ref={inputRef}
-      value={Input}
-      onChange={(e)=>setInput(e.target.value)}
+    <div style={{ textAlign: "center", marginTop: "40px" }}>
+      <h3>useRef Display Example</h3>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Type something..."
       />
-      <p>my name is {Input}</p>
-      <p>my name is {inputRef.current}</p>
-      {/* <p>my name is {inputRef.current}</p> */}
-      <button onClick={display}>Show Input</button>
-      <Counter />
-      <FocusInput />
+      <p>State Value: {input}</p>
+      <p>Ref Value: {inputRef.current}</p>
+      <button onClick={() => alert(inputRef.current)}>Show Ref Value</button>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default RefDisplayExample;
